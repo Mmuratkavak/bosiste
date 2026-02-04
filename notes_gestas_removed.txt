@@ -1,0 +1,11 @@
+Gestaş / gemi entegrasyonu için eklenen PHP tarafı kodlar şu dosyalardadır (şu an için projede kullanılmıyor, n8n ile entegre edilirken tekrar karar verilecektir):
+- app/Models/FerrySchedule.php
+- app/Models/FerryAnnouncement.php
+- app/Services/GestasScraperService.php
+- app/Console/Commands/SyncGestasCommand.php
+- database/migrations/2026_01_26_000100_create_ferry_schedules_table.php
+- database/migrations/2026_01_26_000101_create_ferry_announcements_table.php
+- routes/web.php içindeki /debug/gestas route'u (kaldırıldı)
+- bootstrap/app.php içindeki gestas:sync scheduler kaydı (kaldırıldı)
+
+Veritabanındaki mevcut ferry_* tabloları (varsa) migration'lar daha önce çalıştığı için kalabilir; bundan sonra Gestaş entegrasyonu n8n üzerinden yapılacaktır.

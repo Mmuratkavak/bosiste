@@ -1,4 +1,238 @@
 <!DOCTYPE html>
+<html class="light" lang="tr">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>Visit Gökçeada Ana Sayfa - Günlük Araçlar</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "primary": "#ff6b6b",
+                            "accent-teal": "#4ECDC4",
+                            "background-light": "#FFFBF0",
+                            "background-dark": "#1F2937",
+                            "anthracite": "#1F2937"
+                        },
+                        fontFamily: {
+                            "display": ["Plus Jakarta Sans", "sans-serif"]
+                        },
+                        borderRadius: {
+                            "DEFAULT": "0.5rem",
+                            "lg": "1rem",
+                            "xl": "1.5rem",
+                            "full": "9999px"
+                        },
+                    },
+                },
+            }
+        </script>
+        <style type="text/tailwindcss">
+            .material-symbols-outlined {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+            body { font-family: 'Plus Jakarta Sans', sans-serif; }
+            .custom-scrollbar::-webkit-scrollbar { height: 4px; }
+            .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+            .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(31,41,55,0.1); border-radius: 10px; }
+        </style>
+    </head>
+    <body class="bg-background-light text-anthracite dark:bg-background-dark dark:text-white transition-colors duration-300">
+        <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+            <header class="sticky top-0 z-50 w-full border-b border-anthracite/5 bg-background-light/80 backdrop-blur-md dark:bg-background-dark/80 dark:border-white/10">
+                <div class="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4 lg:px-10">
+                    <div class="flex items-center gap-3">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
+                            <span class="material-symbols-outlined text-2xl">sailing</span>
+                        </div>
+                        <h2 class="text-xl font-extrabold tracking-tight text-anthracite dark:text-white">Visit Gökçeada</h2>
+                    </div>
+                    <div class="flex items-center gap-4 lg:gap-8">
+                        <nav class="hidden items-center gap-6 md:flex">
+                            <a class="text-sm font-semibold text-anthracite/70 hover:text-primary dark:text-white/70" href="#">İşletme Paneli</a>
+                        </nav>
+                        <div class="flex items-center gap-3">
+                            @if (Route::has('login'))
+                                @auth
+                                    <a href="{{ url('/admin') }}" class="hidden text-sm font-bold text-anthracite hover:text-primary dark:text-white md:block px-4 py-2">İşletme Paneli</a>
+                                @else
+                                    <a href="{{ route('login') }}" class="hidden text-sm font-bold text-anthracite hover:text-primary dark:text-white md:block px-4 py-2">Giriş Yap</a>
+                                @endauth
+                            @endif
+                            <button class="flex items-center justify-center rounded-xl bg-primary px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/20 transition-transform hover:scale-105 active:scale-95">
+                                İşletmeni Ekle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="mx-auto flex w-full max-w-[1200px] flex-1 flex-col px-6 py-8 lg:px-10 lg:py-16">
+                <!-- Hero and search -->
+                <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+                    <div class="flex flex-col gap-8">
+                        <div class="flex flex-col gap-4">
+                            <h1 class="text-4xl font-extrabold leading-tight tracking-tight text-anthracite dark:text-white md:text-5xl lg:text-6xl">
+                                Gökçeada'daki en iyi <span class="text-primary">işletmeleri</span> keşfet
+                            </h1>
+                            <p class="max-w-[500px] text-base font-medium leading-relaxed text-anthracite/60 dark:text-white/60 md:text-lg">
+                                Ege'nin ortasında zamanın durduğu, doğanın ve tarihin iç içe geçtiği adanın en özel noktalarını yerel rehberlerin gözünden keşfedin.
+                            </p>
+                        </div>
+
+                        <div class="relative w-full max-w-[600px]">
+                            <form method="GET" action="/search" class="group flex h-16 w-full items-center gap-2 rounded-2xl bg-white p-2 shadow-xl shadow-anthracite/5 ring-1 ring-anthracite/5 transition-all focus-within:ring-primary/30 dark:bg-background-dark/50 dark:ring-white/10">
+                                <div class="flex items-center pl-3 text-anthracite/40">
+                                    <span class="material-symbols-outlined">search</span>
+                                </div>
+                                <input name="q" class="h-full w-full border-none bg-transparent text-sm font-medium text-anthracite placeholder:text-anthracite/40 focus:ring-0 dark:text-white md:text-base" placeholder="Kaleköy kahvaltı, Aydıncık plajı, bağ evi..." type="text"/>
+                                <button class="flex h-12 min-w-[120px] items-center justify-center rounded-xl bg-primary px-6 text-sm font-bold text-white transition-all hover:bg-primary/90 md:text-base" type="submit">Keşfet</button>
+                            </form>
+                        </div>
+
+                        <div class="mt-4 flex w-full gap-3 overflow-x-auto pb-2 custom-scrollbar lg:flex-wrap">
+                            <div class="flex flex-shrink-0 items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-anthracite/5 dark:bg-background-dark/40 dark:ring-white/10">
+                                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-500 dark:bg-blue-900/20">
+                                    <span class="material-symbols-outlined">wb_sunny</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold text-anthracite/50 dark:text-white/50 uppercase tracking-tighter">Hava &amp; Rüzgar</span>
+                                    @if (!empty($currentWeather))
+                                        @php
+                                            $tempLabel = $currentWeather->temperature_c !== null
+                                                ? number_format($currentWeather->temperature_c, 1, ',', '.') . '°C'
+                                                : 'Veri yok';
+                                            $windLabel = $currentWeather->wind_speed_kmh !== null
+                                                ? number_format($currentWeather->wind_speed_kmh, 1, ',', '.') . ' km/s'
+                                                : null;
+                                            $dirLabel = $currentWeather->wind_direction ?? null;
+                                        @endphp
+                                        <span class="text-sm font-extrabold text-anthracite dark:text-white whitespace-nowrap">
+                                            {{ $tempLabel }}@if($dirLabel || $windLabel), {{ trim(($dirLabel ?? '') . ' ' . ($windLabel ?? '')) }}@endif
+                                        </span>
+                                        <a href="{{ route('weather.index') }}" class="text-[11px] font-semibold text-primary hover:underline mt-0.5">Tüm hava durumunu gör</a>
+                                    @else
+                                        <span class="text-sm font-extrabold text-anthracite dark:text-white whitespace-nowrap">Veri yok</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            @if (!empty($nextFerry))
+                                @php
+                                    $dateLabel = optional($nextFerry->date)->format('d.m');
+                                    $timeLabel = $nextFerry->departure_time ? substr($nextFerry->departure_time, 0, 5) : null;
+                                    $statusLabel = $nextFerry->status ?? 'Tarifeli';
+                                @endphp
+                                <div class="flex flex-shrink-0 items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-anthracite/5 dark:bg-background-dark/40 dark:ring-white/10">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary dark:bg-primary/20">
+                                        <span class="material-symbols-outlined">directions_boat</span>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-xs font-bold text-anthracite/50 dark:text-white/50 uppercase tracking-tighter">Sıradaki Gemi</span>
+                                        <span class="text-sm font-extrabold text-anthracite dark:text-white whitespace-nowrap">
+                                            {{ $dateLabel }} · {{ $timeLabel }} · {{ $statusLabel }}
+                                        </span>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="relative hidden lg:block">
+                        <div class="aspect-square w-full rounded-[2.5rem] bg-cover bg-center shadow-2xl" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCwpfv5uJR-LRQuxN9lLfsEspCBgN5isqo3MzgL5ZzKDxDB1b9GDGgd42w-PttnjtLXcO1L6b2vczx_545ahP1UvEyXrrYDo30hOEE1Bsxhuyy99xKhAaqezhJ0aIsFRud37EBf6sRFbprPlzEZaoVtcf8zCyk8l6bQUU8JCjoxUMVwZzGCkFLmdIGBRoI0-Xi9aO45xl8__sw0mk1AbIoy54H0VzfVK9Rp1vCGAO0Qu70CwtFIgxJeUN2Aew_r47oUA0PvbjXB-lQ");'>
+                            <div class="absolute -bottom-6 -left-6 flex items-center gap-3 rounded-2xl bg-white p-4 shadow-xl dark:bg-background-dark">
+                                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-accent-teal text-white">
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-anthracite/50 dark:text-white/50 uppercase tracking-wider">Popüler Seçim</p>
+                                    <p class="text-sm font-extrabold text-anthracite dark:text-white">Laz Koyu Plajı</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature cards -->
+                <div class="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div class="group relative overflow-hidden rounded-2xl bg-accent-teal p-8 text-white transition-transform hover:-translate-y-1">
+                        <div class="relative z-10 flex h-full flex-col justify-between gap-4">
+                            <div>
+                                <span class="material-symbols-outlined mb-4 text-4xl opacity-80">auto_awesome</span>
+                                <h3 class="text-2xl font-extrabold">Yerel Kürasyon</h3>
+                                <p class="mt-2 text-sm font-medium opacity-90 lg:text-base">Adanın en gizli kalmış lezzet durakları ve rotaları uzman ekibimiz tarafından sizin için seçildi.</p>
+                            </div>
+                            <div class="flex items-center gap-2 font-bold group-hover:underline">Keşfetmeye Başla <span class="material-symbols-outlined">arrow_forward</span></div>
+                        </div>
+                        <div class="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10 blur-2xl"></div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-2xl bg-primary p-8 text-white transition-transform hover:-translate-y-1">
+                        <div class="relative z-10 flex h-full flex-col justify-between gap-4">
+                            <div>
+                                <span class="material-symbols-outlined mb-4 text-4xl opacity-80">landscape</span>
+                                <h3 class="text-2xl font-extrabold">Ada Ruhu</h3>
+                                <p class="mt-2 text-sm font-medium opacity-90 lg:text-base">Gökçeada'nın otantik atmosferini, Rum köylerini ve tarihi dokusunu yansıtan konaklama yerleri.</p>
+                            </div>
+                            <div class="flex items-center gap-2 font-bold group-hover:underline">Hemen İncele <span class="material-symbols-outlined">arrow_forward</span></div>
+                        </div>
+                        <div class="absolute -bottom-8 -right-8 h-40 w-40 rounded-full bg-black/5 blur-3xl"></div>
+                    </div>
+                </div>
+
+                <!-- Categories -->
+                <div class="mt-20 flex items-center justify-between px-2">
+                    <h2 class="text-2xl font-extrabold tracking-tight text-anthracite dark:text-white">Kategoriler</h2>
+                    <a class="text-sm font-bold text-primary hover:underline" href="#">Tümünü Gör</a>
+                </div>
+                <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-5">
+                    <div class="group flex cursor-pointer flex-col items-center justify-center gap-4 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-anthracite/5 transition-all hover:bg-primary/5 hover:shadow-lg hover:ring-primary/20 dark:bg-background-dark dark:ring-white/10">
+                        <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#E8F5E9] text-[#2E7D32] group-hover:scale-110 transition-transform"><span class="material-symbols-outlined text-3xl">beach_access</span></div>
+                        <span class="text-sm font-bold text-anthracite dark:text-white">Plajlar</span>
+                    </div>
+                    <div class="group flex cursor-pointer flex-col items-center justify-center gap-4 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-anthracite/5 transition-all hover:bg-primary/5 hover:shadow-lg hover:ring-primary/20 dark:bg-background-dark dark:ring-white/10">
+                        <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#FFF3E0] text-[#EF6C00] group-hover:scale-110 transition-transform"><span class="material-symbols-outlined text-3xl">restaurant</span></div>
+                        <span class="text-sm font-bold text-anthracite dark:text-white">Restoranlar</span>
+                    </div>
+                    <div class="group flex cursor-pointer flex-col items-center justify-center gap-4 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-anthracite/5 transition-all hover:bg-primary/5 hover:shadow-lg hover:ring-primary/20 dark:bg-background-dark dark:ring-white/10">
+                        <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#E3F2FD] text-[#1565C0] group-hover:scale-110 transition-transform"><span class="material-symbols-outlined text-3xl">hotel</span></div>
+                        <span class="text-sm font-bold text-anthracite dark:text-white">Konaklama</span>
+                    </div>
+                    <div class="group flex cursor-pointer flex-col items-center justify-center gap-4 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-anthracite/5 transition-all hover:bg-primary/5 hover:shadow-lg hover:ring-primary/20 dark:bg-background-dark dark:ring-white/10">
+                        <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#F3E5F5] text-[#7B1FA2] group-hover:scale-110 transition-transform"><span class="material-symbols-outlined text-3xl">wine_bar</span></div>
+                        <span class="text-sm font-bold text-anthracite dark:text-white">Bağ Yolları</span>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="mt-20 border-t border-anthracite/5 bg-white/50 py-12 dark:bg-background-dark/50">
+                <div class="mx-auto max-w-[1200px] px-6 lg:px-10">
+                    <div class="flex flex-col items-center justify-between gap-8 md:flex-row">
+                        <div class="flex items-center gap-3">
+                            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white"><span class="material-symbols-outlined text-lg">sailing</span></div>
+                            <span class="text-lg font-extrabold text-anthracite dark:text-white">Visit Gökçeada</span>
+                        </div>
+                        <div class="flex gap-8 text-sm font-bold text-anthracite/60 dark:text-white/60">
+                            <a class="hover:text-primary" href="#">Hakkımızda</a>
+                            <a class="hover:text-primary" href="#">İletişim</a>
+                            <a class="hover:text-primary" href="#">KVKK</a>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-anthracite/5 hover:bg-primary hover:text-white dark:bg-white/5"><span class="material-symbols-outlined text-xl">share</span></div>
+                            <div class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-anthracite/5 hover:bg-primary hover:text-white dark:bg-white/5"><span class="material-symbols-outlined text-xl">location_on</span></div>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center text-xs font-medium text-anthracite/40 dark:text-white/40">© 2024 Visit Gökçeada. Tüm hakları saklıdır.</div>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -19,30 +253,30 @@
             </style>
         @endif
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
+    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col" style="background-color: #FFFBF0; color: #1F2937;">
         <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
             @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
                         <a
-                            href="{{ url('/dashboard') }}"
+                            href="{{ url('/admin') }}"
                             class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
                         >
-                            Dashboard
+                            İşletme Paneli
                         </a>
                     @else
                         <a
                             href="{{ route('login') }}"
                             class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
                         >
-                            Log in
+                            Giriş Yap
                         </a>
 
                         @if (Route::has('register'))
                             <a
                                 href="{{ route('register') }}"
                                 class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Register
+                                İşletmeni Ekle
                             </a>
                         @endif
                     @endauth
@@ -52,73 +286,48 @@
         <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
             <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
                 <div class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">
-                    <h1 class="mb-1 font-medium">Let's get started</h1>
-                    <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Laravel has an incredibly rich ecosystem. <br>We suggest starting with the following.</p>
-                    <ul class="flex flex-col mb-4 lg:mb-6">
-                        <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
-                            <span class="relative py-1 bg-white dark:bg-[#161615]">
-                                <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border dark:border-[#3E3E3A] border-[#e3e3e0]">
-                                    <span class="rounded-full bg-[#dbdbd7] dark:bg-[#3E3E3A] w-1.5 h-1.5"></span>
-                                </span>
-                            </span>
-                            <span>
-                                Read the
-                                <a href="https://laravel.com/docs" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
-                                    <span>Documentation</span>
-                                    <svg
-                                        width="10"
-                                        height="11"
-                                        viewBox="0 0 10 11"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="w-2.5 h-2.5"
-                                    >
-                                        <path
-                                            d="M7.70833 6.95834V2.79167H3.54167M2.5 8L7.5 3.00001"
-                                            stroke="currentColor"
-                                            stroke-linecap="square"
-                                        />
-                                    </svg>
-                                </a>
-                            </span>
-                        </li>
-                        <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:bottom-1/2 before:top-0 before:left-[0.4rem] before:absolute">
-                            <span class="relative py-1 bg-white dark:bg-[#161615]">
-                                <span class="flex items-center justify-center rounded-full bg-[#FDFDFC] dark:bg-[#161615] shadow-[0px_0px_1px_0px_rgba(0,0,0,0.03),0px_1px_2px_0px_rgba(0,0,0,0.06)] w-3.5 h-3.5 border dark:border-[#3E3E3A] border-[#e3e3e0]">
-                                    <span class="rounded-full bg-[#dbdbd7] dark:bg-[#3E3E3A] w-1.5 h-1.5"></span>
-                                </span>
-                            </span>
-                            <span>
-                                Watch video tutorials at
-                                <a href="https://laracasts.com" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
-                                    <span>Laracasts</span>
-                                    <svg
-                                        width="10"
-                                        height="11"
-                                        viewBox="0 0 10 11"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="w-2.5 h-2.5"
-                                    >
-                                        <path
-                                            d="M7.70833 6.95834V2.79167H3.54167M2.5 8L7.5 3.00001"
-                                            stroke="currentColor"
-                                            stroke-linecap="square"
-                                        />
-                                    </svg>
-                                </a>
-                            </span>
-                        </li>
-                    </ul>
-                    <ul class="flex gap-3 text-sm leading-normal">
-                        <li>
-                            <a href="https://cloud.laravel.com" target="_blank" class="inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">
-                                Deploy now
-                            </a>
-                        </li>
-                    </ul>
+                    <h1 class="mb-2 font-medium" style="font-size: 22px; line-height: 1.3;">
+                        Gökçeada'daki en iyi işletmeleri keşfet
+                    </h1>
+                    <p class="mb-4 text-[#706f6c] dark:text-[#A1A09A]">
+                        Plajlar, kahvaltıcılar, şarap bağları ve ada ruhunu yansıtan işletmeler
+                        tek bir yerde. Visit Gökçeada, adaya gelmeden önce plan yapmanı ve
+                        adadayken en doğru yerleri bulmanı kolaylaştırır.
+                    </p>
+
+                    <form method="GET" action="/search" class="mb-4 flex flex-col gap-3 lg:flex-row">
+                        <input
+                            type="text"
+                            name="q"
+                            placeholder="Örneğin: Kale köy kahvaltı, Ayayorgi plajı, bağ evi..."
+                            class="text-sm leading-normal px-5 py-2 border border-[#e3e3e0] rounded-sm"
+                            style="background-color: #FFFBF0; color: #1F2937;"
+                        >
+                        <button
+                            type="submit"
+                            class="inline-block px-5 py-2 rounded-sm text-sm leading-normal text-white"
+                            style="background-color: #FF6B6B; box-shadow: 0 8px 18px rgba(255,107,107,0.4);"
+                        >
+                            İşletme Keşfet
+                        </button>
+                    </form>
+
+                    <div class="flex flex-col lg:flex-row gap-3 text-sm leading-normal">
+                        <div class="flex-1 py-2 px-4 rounded-sm border border-[#e3e3e0]" style="background-color: rgba(45,139,150,0.05);">
+                            <div class="font-medium" style="color: #2D8B96;">Yerel kürasyon</div>
+                            <div class="text-[#706f6c] dark:text-[#A1A09A]">
+                                İşletme profilleri, çalışma saatleri ve sezon bilgileri tek ekranda.
+                            </div>
+                        </div>
+                        <div class="flex-1 py-2 px-4 rounded-sm border border-[#e3e3e0]" style="background-color: rgba(255,107,107,0.06);">
+                            <div class="font-medium" style="color: #FF6B6B;">Ada ruhu</div>
+                            <div class="text-[#706f6c] dark:text-[#A1A09A]">
+                                Fotoğraf galerileri ve notlarla, mekânı görmeden havasını yakala.
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-[#fff2f2] dark:bg-[#1D0002] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/376] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden">
+                <div class="bg-[#fff2f2] dark:bg-[#1D0002] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/376] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden hidden">
                     {{-- Laravel Logo --}}
                     <svg class="w-full text-[#F53003] dark:text-[#F61500] transition-all translate-y-0 opacity-100 max-w-none duration-750 starting:opacity-0 starting:translate-y-6" viewBox="0 0 438 104" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.2036 -3H0V102.197H49.5189V86.7187H17.2036V-3Z" fill="currentColor" />

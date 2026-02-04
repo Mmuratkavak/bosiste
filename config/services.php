@@ -39,4 +39,12 @@ return [
         'places_key' => env('GOOGLE_PLACES_API_KEY'),
     ],
 
+    'gestas' => [
+        'token' => env('GESTAS_TOKEN'),
+    ],
+
+    'weather' => [
+        'token' => env('WEATHER_TOKEN', env('GESTAS_TOKEN')),
+    ],
+
 ];
