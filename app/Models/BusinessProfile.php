@@ -140,7 +140,9 @@ class BusinessProfile extends Model implements HasMedia
                 $gallery = $model->gallery ?? [];
                 $mediaService = app(MediaService::class);
 
-                foreach ($gallery as $item) {
+                $galleryUpdated = false;
+
+                foreach ($gallery as $index => $item) {
                     // If item is a string path saved by Filament
                     if (is_string($item)) {
                         if (Storage::disk('public')->exists($item)) {
@@ -155,15 +157,15 @@ class BusinessProfile extends Model implements HasMedia
                         $path = $mediaService->downloadGooglePhoto($photoRef, $model->tenant_id);
                         if ($path) {
                             // replace photo_reference with stored path
-                            $galleryPathItem = $path;
+                            $gallery[$index] = $path;
+                            $galleryUpdated = true;
                             dispatch(new OptimizeImage($path, 'public'));
                         }
                     }
                 }
 
                 // If we replaced any photo_references by local paths, save them
-                $stringItems = array_filter($gallery, fn($g) => is_string($g));
-                if (count($stringItems) > 0) {
+                if ($galleryUpdated) {
                     $model->gallery = array_values($gallery);
                     $model->saveQuietly();
                 }
