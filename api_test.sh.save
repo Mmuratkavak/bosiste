@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Değişkenler
+URL="https://visitgokceada.com/api/weather/forecasts"
+TOKEN="38ofL4uafubC90OcG2UZFqhBOGB_7vSHyCEMHK3DqcNi82tSE"
+
+echo "-----------------------------------------------"
+echo "🚀 Laravel API Testi Başlatılıyor..."
+echo "📍 Hedef: $URL"
+echo "-----------------------------------------------"
+
+# Curl ile POST isteği gönder
+RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "$URL" \
+     -H "Content-Type: application/json" \
+     -H "X-Gestas-Token: $TOKEN" \
+     -d '{
+           "data": {
+             "lokasyon": "Test Lokasyonu",
+             "items": [
+               {
+                 "lokasyon": "Test Lokasyonu",
+                 "tarih_iso": "2026-02-04",
+                 "saat_24": "12:00",
+                 "sicaklik": 25.5,
+                 "yagis_mm": 0,
+                 "ruzgar_hizi_kmh": 10,
+                 "nem_yuzde": 50,
+                 "basinc_hpa": 1013,
+                 "model": "test-script"
+               }
+             ]
+           }
+         }')
+
+# Yanıtı ve HTTP Durum Kodunu Ayır
+BODY=$(echo "$RESPONSE" | head -n 1)
+STATUS=$(echo "$RESPONSE" | tail -n 1)
+
+echo "📩 Sunucu Yanıtı: $BODY"
+echo "🔢 HTTP Durum Kodu: $STATUS"
+
+if [ "$STATUS" -eq 200 ] || [ "$STATUS" -eq 201 ]; then
+    echo "✅ BAŞARILI: API veriyi kabul etti."
+elif [ "$STATUS" -eq 401 ]; then
+    echo "❌ HATA: Yetkilendirme (Token) geçersiz. Controller içindeki token'ı kontrol et."
+elif [ "$STATUS" -eq 404 ]; then
+    echo "❌ HATA: URL bulunamadı. routes/api.php dosyasını kontrol et."
+elif [ "$STATUS" -eq 500 ]; then
+    echo "❌ HATA: Sunucu içi hata (Server Error). Loglara bak: storage/logs/laravel.log"
+else
+    echo "❓ BİLİNMEYEN HATA: Beklenmeyen bir yanıt alındı."
+fi
+echo "-----------------------------------------------"
